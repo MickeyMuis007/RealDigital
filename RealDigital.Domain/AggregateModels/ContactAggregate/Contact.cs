@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealDigital.Domain.AggregateModels.ContactAggregate
 {
-    public class Contact : IEntity
+    public class Contact : IAggregateRoot
     {
         #region Properties
 
