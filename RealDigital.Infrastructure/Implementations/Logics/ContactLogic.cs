@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RealDigital.Application.Errors;
 using RealDigital.Application.ILogic;
 using RealDigital.Application.Models;
 using RealDigital.Application.Models.ViewModels;
@@ -60,11 +61,11 @@ namespace RealDigital.Infrastructure.Implementations.Logics
             return _mapper.Map<ContactViewModel>(contact);
         }
 
-        public async Task Update(Guid id, ContactModel contactModel)
+        public async Task Update(Guid contactId, ContactModel contactModel)
         {
-            Contact contact = await _unitOfWork.ContactRepository.GetById(id);
+            Contact contact = await _unitOfWork.ContactRepository.GetById(contactId);
             if (contact == null)
-                throw new Exception("Not found");
+                throw new RecordNotFound(contactId);
 
             _mapper.Map(contactModel, contact);
             _unitOfWork.ContactRepository.Update(contact);
@@ -74,7 +75,7 @@ namespace RealDigital.Infrastructure.Implementations.Logics
         {
             Contact contact = await _unitOfWork.ContactRepository.GetById(contactId);
             if (contact == null)
-                throw new Exception("Not found");
+                throw new RecordNotFound(contactId);
 
             _unitOfWork.ContactRepository.Delete(contact);
             await _unitOfWork.SaveAsync();
