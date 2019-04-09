@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RealDigital.Persistence.Context;
+using RealDigital.UI.Middleware;
 
 namespace RealDigital.UI
 {
@@ -54,6 +55,7 @@ namespace RealDigital.UI
                 app.UseHsts();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

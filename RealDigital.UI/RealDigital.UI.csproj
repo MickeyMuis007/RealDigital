@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RealDigital.Application\RealDigital.Application.csproj" />
     <ProjectReference Include="..\RealDigital.Persistence\RealDigital.Persistence.csproj" />
   </ItemGroup>
 
