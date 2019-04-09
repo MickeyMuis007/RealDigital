@@ -11,9 +11,9 @@ namespace RealDigital.Application.ILogic
     public interface IContactLogic
     {
         Task<IEnumerable<ContactViewModel>> GetAllAsync();
-        Task<ContactViewModel> GetById(int contactId);
+        Task<ContactViewModel> GetById(Guid contactId);
         Task<ContactViewModel> Insert(ContactModel contactModel);
-        Task Update(ContactModel contactModel);
-        Task Delete(int contactId);
+        Task Update(Guid id, ContactModel contactModel);
+        Task Delete(Guid contactId);
     }
 }

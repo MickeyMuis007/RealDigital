@@ -33,7 +33,7 @@ namespace RealDigital.Infrastructure.Implementations.Repositories
             return await _context.Set<TRootEntity>().ToListAsync();
         }
 
-        public async Task<TRootEntity> Get(Guid id)
+        public async Task<TRootEntity> GetById(Guid id)
         {
             return await _context.FindAsync<TRootEntity>(id);
         }
@@ -47,10 +47,9 @@ namespace RealDigital.Infrastructure.Implementations.Repositories
         {
             _context.Update(entity);
         }
-        public async Task Delete(Guid id)
+        public void Delete(TRootEntity entity)
         {
-            var itemToDelete = await Get(id);
-            _context.Remove(itemToDelete);
+            _context.Remove(entity);
         }
 
         #endregion Methods

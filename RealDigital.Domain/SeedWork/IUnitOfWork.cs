@@ -10,5 +10,6 @@ namespace RealDigital.Domain.SeedWork
     public interface IUnitOfWork
     {
         IContactRepository ContactRepository { get; }
+        Task SaveAsync();
     }
 }

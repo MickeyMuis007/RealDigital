@@ -37,5 +37,14 @@ namespace RealDigital.Infrastructure.Implementations.Repositories
         }
 
         #endregion Constructors
+
+        #region Methods
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        #endregion Methods
     }
 }

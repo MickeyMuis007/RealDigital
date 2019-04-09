@@ -1,6 +1,11 @@
-﻿using RealDigital.Application.ILogic;
+﻿using AutoMapper;
+using RealDigital.Application.ILogic;
 using RealDigital.Application.Models;
 using RealDigital.Application.Models.ViewModels;
+using RealDigital.Domain.AggregateModels.ContactAggregate;
+using RealDigital.Domain.AggregateModels.ContactAggregate.Builders;
+using RealDigital.Domain.AggregateModels.ContactAggregate.Builders.Impl;
+using RealDigital.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +16,68 @@ namespace RealDigital.Infrastructure.Implementations.Logics
 {
     public class ContactLogic : IContactLogic
     {
-        public Task<IEnumerable<ContactViewModel>> GetAllAsync()
+        #region Fields
+
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public ContactLogic(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<ContactViewModel> GetById(int contactId)
+        #endregion Constructors
+        public async Task<IEnumerable<ContactViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            IEnumerable<Contact> contacts = await _unitOfWork.ContactRepository.GetAllAsync();
+            var contactViewModels = _mapper.Map<IEnumerable<ContactViewModel>>(contacts);
+            return contactViewModels;
         }
 
-        public Task<ContactViewModel> Insert(ContactModel contactModel)
+        public async Task<ContactViewModel> GetById(Guid contactId)
         {
-            throw new NotImplementedException();
+            Contact contact = await _unitOfWork.ContactRepository.GetById(contactId);
+            var contactViewModel = _mapper.Map<ContactViewModel>(contact);
+            return contactViewModel;
         }
 
-        public Task Update(ContactModel contactModel)
+        public async Task<ContactViewModel> Insert(ContactModel contactModel)
         {
-            throw new NotImplementedException();
-        }
-        public Task Delete(int contactId)
-        {
-            throw new NotImplementedException();
+            var contact = _mapper.Map<Contact>(contactModel);
+            contact = BuilderFactory<ContactBuilder, Contact>.Create()
+                .Set()
+                .Copy(contact)
+                .SetId(new Guid())
+                .Build();
+            await _unitOfWork.ContactRepository.Insert(contact);
+            await _unitOfWork.SaveAsync();
+
+            return _mapper.Map<ContactViewModel>(contact);
         }
 
+        public async Task Update(Guid id, ContactModel contactModel)
+        {
+            Contact contact = await _unitOfWork.ContactRepository.GetById(id);
+            if (contact == null)
+                throw new Exception("Not found");
+
+            _mapper.Map(contactModel, contact);
+            _unitOfWork.ContactRepository.Update(contact);
+            await _unitOfWork.SaveAsync();
+        }
+        public async Task Delete(Guid contactId)
+        {
+            Contact contact = await _unitOfWork.ContactRepository.GetById(contactId);
+            if (contact == null)
+                throw new Exception("Not found");
+
+            _unitOfWork.ContactRepository.Delete(contact);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

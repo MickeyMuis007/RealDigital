@@ -9,9 +9,9 @@ namespace RealDigital.Domain.SeedWork
     public interface IRepository<TEntity> where TEntity : class, IEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity> Get(Guid id);
+        Task<TEntity> GetById(Guid id);
         Task Insert(TEntity entity);
         void Update(TEntity entity);
-        Task Delete(Guid id);
+        void Delete(TEntity entity);
     }
 }
