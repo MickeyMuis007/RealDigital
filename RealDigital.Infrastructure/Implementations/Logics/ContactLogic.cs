@@ -43,18 +43,16 @@ namespace RealDigital.Infrastructure.Implementations.Logics
         public async Task<ContactViewModel> GetById(Guid contactId)
         {
             Contact contact = await _unitOfWork.ContactRepository.GetById(contactId);
+            if (contact == null)
+                throw new RecordNotFound(contactId);
+
             var contactViewModel = _mapper.Map<ContactViewModel>(contact);
             return contactViewModel;
         }
 
         public async Task<ContactViewModel> Insert(ContactModel contactModel)
         {
-            var contact = _mapper.Map<Contact>(contactModel);
-            contact = BuilderFactory<ContactBuilder, Contact>.Create()
-                .Set()
-                .Copy(contact)
-                .SetId(new Guid())
-                .Build();
+            var contact = _mapper.Map<Contact>(contactModel);            
             await _unitOfWork.ContactRepository.Insert(contact);
             await _unitOfWork.SaveAsync();
 

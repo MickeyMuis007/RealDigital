@@ -45,7 +45,7 @@ namespace RealDigital.UI.Middleware
 
             return httpContext.Response.WriteAsync(new ErrorModel()
             {
-                Message = errorMessage,
+                Message = exception.Message,
                 StatusCode = httpContext.Response.StatusCode
             }.ToString());
         }

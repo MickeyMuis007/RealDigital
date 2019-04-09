@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using RealDigital.Application.ILogic;
 using RealDigital.Application.Models;
 using RealDigital.Application.Models.ViewModels;
@@ -46,7 +47,9 @@ namespace RealDigital.UI.Controllers
         [HttpPost]
         public async Task<ActionResult<ContactViewModel>> Insert(ContactModel contactModel)
         {
-            return Created("", await _contactLogic.Insert(contactModel));
+            ContactViewModel contactViewModel = await _contactLogic.Insert(contactModel);
+            var url = Request.GetDisplayUrl() ?? "";
+            return Created($"{url}/{contactViewModel.Id}", contactViewModel);
         }
 
         [HttpPut("{id}")]
