@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RealDigital.Application.ILogic;
+using RealDigital.Infrastructure.Implementations.Logics;
 using RealDigital.Persistence.Context;
 using RealDigital.UI.Middleware;
 
@@ -38,6 +40,7 @@ namespace RealDigital.UI
             });
 
             services.AddTransient<RealDigitalContext>();
+            services.AddScoped<IContactLogic, ContactLogic>();
             services.AddAutoMapper();
         }
 
