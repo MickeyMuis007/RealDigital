@@ -34,31 +34,33 @@ namespace RealDigital.UI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ContactViewModel>>> GetAllAsync()
         {
-            return Ok();
+            return Ok(await _contactLogic.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ContactViewModel>> GetById()
+        public async Task<ActionResult<ContactViewModel>> GetById(Guid id)
         {
-            return Ok();
+            return Ok(await _contactLogic.GetById(id));
         }
 
         [HttpPost]
         public async Task<ActionResult<ContactViewModel>> Insert(ContactModel contactModel)
         {
-            return Created("", null);
+            return Created("", await _contactLogic.Insert(contactModel));
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(Guid id, ContactModel contactModel)
         {
+            await _contactLogic.Update(id, contactModel);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            return Ok();
+            await _contactLogic.Delete(id);
+            return NoContent();
         }
 
         #endregion Methods
