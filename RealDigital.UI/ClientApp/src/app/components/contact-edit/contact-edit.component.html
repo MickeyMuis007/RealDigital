@@ -1,7 +1,7 @@
 <div class="card">
   <h2 class="card-header">Contact {{ title }}</h2>
   <div class="card-body">
-    <form [formGroup]="contactFormGroup">
+    <form [formGroup]="contactFormGroup" #f="ngForm" (ngSubmit)="save()" novalidate>
       <div class="form-group">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -9,7 +9,12 @@
           </div>
           <input type="text" formControlName="firstName"
                  class="form-control" placeholder="Enter your first name"
-                 aria-label="First Name" aria-describedby="firstName">
+                 aria-label="First Name" aria-describedby="firstName"
+                 [ngClass]="{'is-invalid': (contactFormGroup.get('firstName').touched || contactFormGroup.get('firstName').dirty || f.submitted)
+                  && !contactFormGroup.get('firstName').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="contactFormGroup.get('firstName').hasError('required')">This field is required!</span>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -17,7 +22,13 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="lastName">Last Name</span>
           </div>
-          <input type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name" aria-label="Last Name" aria-describedby="lastName">
+          <input type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name"
+                 aria-label="Last Name" aria-describedby="lastName"
+                 [ngClass]="{'is-invalid': (contactFormGroup.get('lastName').touched || contactFormGroup.get('lastName').dirty || f.submitted)
+                 && !contactFormGroup.get('lastName').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="contactFormGroup.get('lastName').hasError('required')">This field is required!</span>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -25,7 +36,13 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="phoneNo">Phone No</span>
           </div>
-          <input type="text" formControlName="phoneNo" class="form-control" placeholder="Enter your phone no" aria-label="Phone No" aria-describedby="phoneNo">
+          <input type="text" formControlName="phoneNo" class="form-control" placeholder="Enter your phone no" aria-label="Phone No" aria-describedby="phoneNo"
+                 [ngClass]="{'is-invalid': (contactFormGroup.get('phoneNo').touched || contactFormGroup.get('phoneNo').dirty || f.submitted)
+                 && !contactFormGroup.get('phoneNo').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="contactFormGroup.get('phoneNo').hasError('required')">This field is required!</span>
+            <span *ngIf="contactFormGroup.get('phoneNo').hasError('phonenumber')">This phone no is invalid!!</span>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -33,12 +50,16 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="email">Email</span>
           </div>
-          <input type="text" formControlName="email" class="form-control" placeholder="Enter your email address" aria-label="Email" aria-describedby="email">
+          <input type="text" formControlName="email" class="form-control" placeholder="Enter your email address" aria-label="Email" aria-describedby="email"
+                 [ngClass]="{'is-invalid': (contactFormGroup.get('email').touched || contactFormGroup.get('email').dirty || f.submitted)
+                 && !contactFormGroup.get('email').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address!</span>
+          </span>
         </div>
       </div>
-      <button class="btn btn-primary">Save</button>
       <button class="btn btn-outline-primary" [routerLink]="['/contact']">Back</button>
-
+      <button class="btn btn-outline-success" type="submit">Save</button>
     </form>
   </div>
 </div>

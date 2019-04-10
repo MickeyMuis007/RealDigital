@@ -22,5 +22,5 @@ export class ContactDetailsComponent implements OnInit {
     )
   }
   id: string;
-  contact: Contact = new Contact();
+  contact: Contact = new Contact();  
 }

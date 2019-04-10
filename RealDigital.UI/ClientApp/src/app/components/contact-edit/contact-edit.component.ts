@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContactService } from 'src/app/services/contact.service';
 import { Contact } from 'src/app/models/contact.model';
 
+import { NumberValidators } from 'src/app/shared/validator/number.validator'
+
 @Component({
   templateUrl: './contact-edit.component.html'
 })
@@ -47,8 +49,37 @@ export class ContactEditComponent implements OnInit {
     this.contactFormGroup = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      phoneNo: ['', Validators.compose([Validators.required, NumberValidators.phoneNo])],
       email: ['', Validators.email]
     });
+  }
+
+  save() {
+    if (this.contactFormGroup.valid) {
+      this.contact.firstName = this.contactFormGroup.controls.firstName.value;
+      this.contact.lastName = this.contactFormGroup.controls.lastName.value;
+      this.contact.phoneNo = this.contactFormGroup.controls.phoneNo.value;
+      this.contact.email = this.contactFormGroup.controls.email.value;
+
+      if (this.id === "0") {
+        this.contactService.addContact(this.contact).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.error(err);
+          }
+        )
+      } else {
+        this.contactService.updateContact(this.contact).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.error(err);
+          }
+        )
+      }
+    }
   }
 }
