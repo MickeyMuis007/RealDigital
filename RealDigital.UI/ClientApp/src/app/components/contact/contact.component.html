@@ -11,17 +11,23 @@
           <th scope="col">Last Name</th>
           <th scope="col">Phone No</th>
           <th scope="col">Email</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contact of contacts; let i = index" [routerLink]="['/contact', contact.id]">
+        <tr *ngFor="let contact of contacts; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ contact.firstName }}</td>
           <td>{{ contact.lastName }}</td>
           <td>{{ contact.phoneNo }}</td>
           <td>{{ contact.lastName }}</td>
+          <td>
+            <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id]">View</button>
+            <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id, 'edit']">Edit</button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-outline-primary" [routerLink]="['0', 'edit']">Add</button>
   </div>
 </div>
