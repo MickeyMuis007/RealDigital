@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -10,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactEditComponent } from './components/contact-edit/contact-edit.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 @NgModule({
@@ -19,13 +22,16 @@ import { ContactEditComponent } from './components/contact-edit/contact-edit.com
     HomeComponent,
     ContactComponent,
     ContactDetailsComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'contact', component: ContactComponent },
