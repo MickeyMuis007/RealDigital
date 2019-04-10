@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ContactService } from 'src/app/services/contact.service';
@@ -12,6 +12,7 @@ import { NumberValidators } from 'src/app/shared/validator/number.validator'
 })
 export class ContactEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private contactService: ContactService,
     private formBuilder: FormBuilder) { }
 
@@ -36,6 +37,7 @@ export class ContactEditComponent implements OnInit {
       );
     }
     this.buildFormGroup();
+    this.contact = new Contact();
   }
 
   private setContact(contact: Contact) {
@@ -65,15 +67,17 @@ export class ContactEditComponent implements OnInit {
         this.contactService.addContact(this.contact).subscribe(
           res => {
             console.log(res);
+            this.router.navigate(["/contact"]);
           },
           err => {
             console.error(err);
           }
         )
       } else {
-        this.contactService.updateContact(this.contact).subscribe(
+        this.contactService.updateContact(this.id, this.contact).subscribe(
           res => {
-            console.log(res);
+            console.log("Update successfull");
+            this.router.navigate(["/contact"]);
           },
           err => {
             console.error(err);

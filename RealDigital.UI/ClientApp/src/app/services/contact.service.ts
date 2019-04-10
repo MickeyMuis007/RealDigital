@@ -24,8 +24,8 @@ export class ContactService {
     return this.httpClient.post<Contact>(this.baseUrl, contact);
   }
 
-  updateContact(contact: Contact) {
-    return this.httpClient.put(this.baseUrl, contact);
+  updateContact(id: string, contact: Contact) {
+    return this.httpClient.put(this.baseUrl + '/' + id, contact);
   }
 
   deleteContact(id) {
