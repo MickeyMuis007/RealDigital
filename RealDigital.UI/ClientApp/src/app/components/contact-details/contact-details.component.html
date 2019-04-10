@@ -1,0 +1,27 @@
+<div class="card">
+  <h2 class="card-header">Contact Details</h2>
+  <div class="card-body">
+    <div class="row">
+      <label class="col-md-2">ID:</label>
+      <div class="col-md-10">{{ contact.id }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-2">First Name:</label>
+      <div class="col-md-10">{{ contact.firstName }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-2">LastName:</label>
+      <div class="col-md-10">{{ contact.lastName }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-2">Phone No:</label>
+      <div class="col-md-10">{{ contact.phoneNo }}</div>
+    </div>
+    <div class="row">
+      <label class="col-md-2">Email:</label>
+      <div class="col-md-10">{{ contact.email }}</div>
+    </div>
+    <button class="btn btn-outline-primary" [routerLink]="['/contact']">Back</button>
+  </div>
+</div>
+
