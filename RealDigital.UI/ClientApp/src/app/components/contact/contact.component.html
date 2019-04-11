@@ -4,7 +4,8 @@
   </div>
   <div class="card-body">
     <app-loader [hidden]="!loading"></app-loader>
-    <div [hidden]="loading">
+    <div [hidden]="loading">      
+      <fa-icon class="btn" [icon]="faUserPlus" [routerLink]="['0', 'edit']" data-toggle="tooltip" data-placement="top" title="Add new contact"></fa-icon>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
@@ -24,13 +25,12 @@
             <td>{{ contact.phoneNo }}</td>
             <td>{{ contact.email }}</td>
             <td>
-              <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id]">View</button>
-              <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id, 'edit']">Edit</button>
+              <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id]" data-toggle="tooltip" data-placement="top" title="View contact">View</button>
+              <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id, 'edit']" data-toggle="tooltip" data-placement="top" title="Update contact">Edit</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button class="btn btn-outline-primary" [routerLink]="['0', 'edit']">Add</button>
     </div>
   </div>
 </div>
