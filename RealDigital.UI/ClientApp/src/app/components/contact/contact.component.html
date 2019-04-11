@@ -26,7 +26,8 @@
             <td>{{ contact.email }}</td>
             <td>
               <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id]" data-toggle="tooltip" data-placement="top" title="View contact">View</button>
-              <button class="btn btn-outline-info" [routerLink]="['/contact', contact.id, 'edit']" data-toggle="tooltip" data-placement="top" title="Update contact">Edit</button>
+              <button class="btn btn-outline-warning" [routerLink]="['/contact', contact.id, 'edit']" data-toggle="tooltip" data-placement="top" title="Update contact">Edit</button>
+              <button class="btn btn-outline-danger" [routerLink]="['/contact-delete', contact.id]" data-toggle="tooltip" data-placement="top" title="Delete contact">Delete</button>
             </td>
           </tr>
         </tbody>

@@ -12,7 +12,6 @@ fa-icon {
   box-shadow: 2px 2px 3px #999;
 }
 
-.icon {
-  /*text-align: right;*/
-  float:right;
+.btn {
+  margin: 0px 2px;
 }

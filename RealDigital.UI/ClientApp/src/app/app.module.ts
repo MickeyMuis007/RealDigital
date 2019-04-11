@@ -15,6 +15,7 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactEditComponent } from './components/contact-edit/contact-edit.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ContactDeleteComponent } from './components/contact-delete/contact-delete.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     ContactComponent,
     ContactDetailsComponent,
     ContactEditComponent,
-    LoaderComponent
+    LoaderComponent,
+    ContactDeleteComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,7 +42,8 @@ import { LoaderComponent } from './components/loader/loader.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'contact', component: ContactComponent },
       { path: 'contact/:id', component: ContactDetailsComponent },
-      { path: 'contact/:id/edit', component: ContactEditComponent }
+      { path: 'contact/:id/edit', component: ContactEditComponent },
+      { path: 'contact-delete/:id', component: ContactDeleteComponent }
     ])
   ],
   providers: [],
