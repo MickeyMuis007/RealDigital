@@ -19,8 +19,11 @@ export class ContactDetailsComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    ).add(() => {
+      this.loading = false;
+    })
   }
   id: string;
-  contact: Contact = new Contact();  
+  contact: Contact = new Contact();
+  loading: boolean = true;
 }
