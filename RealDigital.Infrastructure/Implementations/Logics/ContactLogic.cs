@@ -37,7 +37,7 @@ namespace RealDigital.Infrastructure.Implementations.Logics
         {
             IEnumerable<Contact> contacts = await _unitOfWork.ContactRepository.GetAllAsync();
             var contactViewModels = _mapper.Map<IEnumerable<ContactViewModel>>(contacts);
-            return contactViewModels;
+            return contactViewModels.OrderBy(t => t.FirstName);
         }
 
         public async Task<ContactViewModel> GetById(Guid contactId)
