@@ -11,6 +11,7 @@ using RealDigital.Application.ILogic;
 using RealDigital.Domain.SeedWork;
 using RealDigital.Infrastructure.Implementations.Logics;
 using RealDigital.Infrastructure.Implementations.Repositories;
+using RealDigital.Persistence.Configurations;
 using RealDigital.Persistence.Context;
 using RealDigital.UI.Middleware;
 
@@ -42,6 +43,7 @@ namespace RealDigital.UI
             });
 
             services.AddTransient<RealDigitalContext>();
+            services.AddTransient<CreateDB>();
             services.AddScoped<IContactLogic, ContactLogic>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
